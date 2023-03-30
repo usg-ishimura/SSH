@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">SSH</string>
+    <string name="app_name">Mic2Shell</string>
 
     <string name="share">Share</string>
     <string name="ctrlc">CTRL-C</string>
