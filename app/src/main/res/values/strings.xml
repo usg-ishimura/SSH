@@ -2,7 +2,8 @@
     <string name="app_name">SSH</string>
 
     <string name="share">Share</string>
-
+    <string name="ctrlc">CTRL-C</string>
+    <string name="microphone">Microphone</string>
     <string name="input_address">Address</string>
     <string name="input_port">Port</string>
     <string name="input_username">Username</string>

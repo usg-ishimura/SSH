@@ -24,12 +24,11 @@ import kotlinx.coroutines.*
 
 class ShellActivity : AppCompatActivity() {
     private val viewModel: ShellActivityViewModel by viewModels()
-
     private lateinit var progress: ProgressBar
     private lateinit var command: TextInputEditText
     private lateinit var output: MaterialTextView
     private lateinit var outputScrollView: ScrollView
-
+    private var flag: Boolean = false
     private lateinit var errorDialog: AlertDialog
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -121,6 +120,16 @@ class ShellActivity : AppCompatActivity() {
                     Snackbar.make(output, getString(R.string.snackbar_intent_failed), Snackbar.LENGTH_SHORT)
                         .setAction(getString(R.string.dismiss)) {}
                         .show()
+                }
+                true
+            }
+            R.id.microphone -> {
+                if(flag === false) {
+                    item.setIcon(R.drawable.baseline_mic_24)
+                    flag = true
+                } else {
+                    item.setIcon(R.drawable.baseline_mic_none_24)
+                    flag = false
                 }
                 true
             }
