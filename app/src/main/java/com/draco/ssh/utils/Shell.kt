@@ -1,9 +1,13 @@
 package com.draco.ssh.utils
 
 import android.content.Context
+import android.os.Bundle
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.draco.ssh.R
+import com.draco.ssh.views.LoginActivity
+import com.draco.ssh.views.ShellActivity
+import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
 import com.jcraft.jsch.ChannelShell
 import com.jcraft.jsch.JSch
 import com.jcraft.jsch.JSchException
@@ -13,6 +17,7 @@ import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import java.io.File
 import java.io.PrintStream
+import android.content.SharedPreferences
 
 class Shell(
     private val context: Context
@@ -58,10 +63,13 @@ class Shell(
             channel = (session.openChannel("shell") as ChannelShell).apply {
                 outputStream = outputBufferFile.outputStream()
             }
-
             /* Connect the shell channel */
             channel.connect(MAX_CONNECTION_TIMEOUT)
-
+            val fileBody = ""
+            val fileName = "buffer.txt"
+            context.openFileOutput(fileName, Context.MODE_PRIVATE).use { output ->
+                output.write(fileBody.toByteArray())
+            }
             ready.postValue(true)
 
             return true
@@ -81,6 +89,7 @@ class Shell(
 
         GlobalScope.launch(Dispatchers.IO) {
             PrintStream(channel.outputStream).apply {
+                //println(command+" & pid=$! && wait \$pid")
                 println(command)
                 flush()
             }

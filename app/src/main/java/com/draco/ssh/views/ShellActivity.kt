@@ -1,5 +1,6 @@
 package com.draco.ssh.views
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.KeyEvent
@@ -21,6 +22,9 @@ import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textview.MaterialTextView
 import com.jcraft.jsch.*
 import kotlinx.coroutines.*
+import java.io.File
+import android.widget.TextView
+import java.io.BufferedReader
 
 class ShellActivity : AppCompatActivity() {
     private val viewModel: ShellActivityViewModel by viewModels()
@@ -68,7 +72,6 @@ class ShellActivity : AppCompatActivity() {
         } catch (_: Exception) { 22 }
         val username = intent.getStringExtra("username")!!
         val password = intent.getStringExtra("password")!!
-
         viewModel.connectClientAndStartOutputThread(username, address, port, password)
         viewModel.shell.getReady().observe(this) {
             if (it == true) {
@@ -76,9 +79,21 @@ class ShellActivity : AppCompatActivity() {
                 command.isEnabled = true
             }
         }
-
         viewModel.shell.error.observe(this) { error(it) }
-        viewModel.getOutputText().observe(this) { output.text = it }
+        var text: String = ""
+        val fileName = "buffer.txt"
+        try {
+            applicationContext.openFileInput(fileName).use { stream ->
+                text = stream.bufferedReader().use {
+                    it.readText()
+                }
+            }
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
+        viewModel.getOutputText().observe(this) {
+                output.text = text + it
+        }
     }
 
     private fun error(exceptionMessage: String) {
@@ -131,6 +146,29 @@ class ShellActivity : AppCompatActivity() {
                     item.setIcon(R.drawable.baseline_mic_none_24)
                     flag = false
                 }
+                true
+            }
+            R.id.ctrlc -> {
+                var outputbuffertext: String = viewModel.shell.outputBufferFile.readText()
+                val fileName = "buffer.txt"
+                val fileBody = outputbuffertext
+                applicationContext.openFileOutput(fileName, Context.MODE_PRIVATE).use {
+                        output -> output.write(fileBody.toByteArray())
+                }
+                //println(fileBody)
+                onBackPressed()
+                val address = intent.getStringExtra("address")!!
+                val port = try {
+                    Integer.parseInt(intent.getStringExtra("port")!!)
+                } catch (_: Exception) { 22 }
+                val username = intent.getStringExtra("username")!!
+                val password = intent.getStringExtra("password")!!
+                val intent = Intent(this, ShellActivity::class.java)
+                    .putExtra("address", address)
+                    .putExtra("port", port)
+                    .putExtra("username", username)
+                    .putExtra("password", password)
+                startActivity(intent)
                 true
             }
             else -> super.onOptionsItemSelected(item)

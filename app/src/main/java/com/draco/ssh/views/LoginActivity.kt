@@ -3,6 +3,7 @@ package com.draco.ssh.views
 import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
+import android.os.Handler
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.FileProvider
@@ -15,6 +16,8 @@ import com.google.android.material.button.MaterialButton
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
 import com.google.android.material.textfield.TextInputEditText
 import java.io.File
+import android.content.Context
+import android.util.Log
 
 class LoginActivity : AppCompatActivity() {
     private val viewModel: LoginActivityViewModel by viewModels()
@@ -87,9 +90,28 @@ class LoginActivity : AppCompatActivity() {
                 .putExtra("username", username.text.toString())
                 .putExtra("password", password.text.toString())
             startActivity(intent)
+            /*val intent2 = Intent(this, ShellActivity::class.java)
+                .putExtra("address", address.text.toString())
+                .putExtra("port", port.text.toString())
+                .putExtra("username", username.text.toString())
+                .putExtra("password", password.text.toString())
+            startActivity(intent2)*/
         }
+        //Log.d("TAG", sharedPreference.getString("autostart", "defaultVal").toString())
+        /*println("message 1: "+sharedPreference.getString("autostart", "defaultVal"))
+        if(sharedPreference.getString("autostart", "defaultVal") == "performAutoClick") {
+            editor.putString("autostart","defaultVal")
+            editor.commit()
+            //Log.d("TAG", sharedPreference.getString("autostart", "defaultVal").toString())
+            println("message 2: "+sharedPreference.getString("autostart", "defaultVal"))
+            val intent = Intent(this, ShellActivity::class.java)
+                .putExtra("address", address.text.toString())
+                .putExtra("port", port.text.toString())
+                .putExtra("username", username.text.toString())
+                .putExtra("password", password.text.toString())
+            startActivity(intent)
+        }*/
     }
-
     override fun onPause() {
         super.onPause()
         with(encryptedSharedPrefs.edit()) {

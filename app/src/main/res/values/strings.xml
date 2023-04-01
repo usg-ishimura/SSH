@@ -1,8 +1,8 @@
 <resources>
-    <string name="app_name">Mic2Shell</string>
+    <string name="app_name">mic2Shell</string>
 
     <string name="share">Share</string>
-    <string name="ctrlc">CTRL-C</string>
+    <string name="ctrlc">SIGHUP</string>
     <string name="microphone">Microphone</string>
     <string name="input_address">Address</string>
     <string name="input_port">Port</string>
