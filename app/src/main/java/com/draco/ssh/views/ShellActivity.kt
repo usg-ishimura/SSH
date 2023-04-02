@@ -237,7 +237,7 @@ class ShellActivity : AppCompatActivity() {
                 val password = intent.getStringExtra("password")!!
                 val intent = Intent(this, ShellActivity::class.java)
                     .putExtra("address", address)
-                    .putExtra("port", port)
+                    .putExtra("port", port.toString())
                     .putExtra("username", username)
                     .putExtra("password", password)
                 startActivity(intent)
