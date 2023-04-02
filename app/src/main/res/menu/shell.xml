@@ -4,9 +4,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
         <item
             android:id="@+id/microphone"
-            android:checkable="true"
+            android:checkable="false"
             android:checked="false"
-            android:icon="@drawable/baseline_mic_none_24"
+            android:icon="@drawable/baseline_mic_24"
             android:title="@string/microphone"
             app:showAsAction="ifRoom" />
         <item

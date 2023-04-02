@@ -1,8 +1,12 @@
 package com.draco.ssh.viewmodels
 
 import android.app.Application
+import android.view.View
 import androidx.lifecycle.*
+import androidx.recyclerview.widget.RecyclerView
+import com.draco.ssh.R
 import com.draco.ssh.utils.Shell
+import com.draco.ssh.views.ShellActivity
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.isActive
 import kotlinx.coroutines.launch

@@ -1,14 +1,20 @@
 package com.draco.ssh.views
 
+import android.R.menu
+import android.content.ClipData.Item
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.speech.RecognizerIntent
 import android.view.KeyEvent
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
+import android.widget.ImageButton
+import android.os.Handler
 import android.widget.ProgressBar
 import android.widget.ScrollView
+import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
@@ -22,18 +28,22 @@ import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textview.MaterialTextView
 import com.jcraft.jsch.*
 import kotlinx.coroutines.*
-import java.io.File
-import android.widget.TextView
-import java.io.BufferedReader
+import java.util.*
+
 
 class ShellActivity : AppCompatActivity() {
     private val viewModel: ShellActivityViewModel by viewModels()
     private lateinit var progress: ProgressBar
-    private lateinit var command: TextInputEditText
     private lateinit var output: MaterialTextView
     private lateinit var outputScrollView: ScrollView
-    private var flag: Boolean = false
+    //private var flag: Boolean = false
     private lateinit var errorDialog: AlertDialog
+    // on below line we are creating variables
+    // for text input edit
+    private lateinit var command: TextInputEditText
+    //private lateinit var microphone: Item
+    // on below line we are creating a constant value
+    private val REQUEST_CODE_SPEECH_INPUT = 1
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -55,7 +65,6 @@ class ShellActivity : AppCompatActivity() {
                 val text = command.text.toString()
                 command.text = null
                 viewModel.shell.send(text)
-
                 return@setOnKeyListener true
             }
 
@@ -92,7 +101,7 @@ class ShellActivity : AppCompatActivity() {
             e.printStackTrace()
         }
         viewModel.getOutputText().observe(this) {
-                output.text = text + it
+                output.text = text + "\n" + it
         }
     }
 
@@ -112,7 +121,33 @@ class ShellActivity : AppCompatActivity() {
         errorDialog.dismiss()
         super.onDestroy()
     }
+    // on below line we are calling on activity result method.
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
 
+        // in this method we are checking request
+        // code with our result code.
+        if (requestCode == REQUEST_CODE_SPEECH_INPUT) {
+            // on below line we are checking if result code is ok
+            if (resultCode == RESULT_OK && data != null) {
+
+                // in that case we are extracting the
+                // data from our array list
+                val res: ArrayList<String> =
+                    data.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS) as ArrayList<String>
+
+                // on below line we are setting data
+                // to our output text view.
+                command.setText(
+                    Objects.requireNonNull(res)[0]
+                )
+                Handler().postDelayed({
+                    viewModel.shell.send(command.text.toString())
+                    command.setText("")
+                }, 1500)
+            }
+        }
+    }
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
             R.id.share -> {
@@ -139,12 +174,47 @@ class ShellActivity : AppCompatActivity() {
                 true
             }
             R.id.microphone -> {
-                if(flag === false) {
+                /*if(flag === false) {
                     item.setIcon(R.drawable.baseline_mic_24)
                     flag = true
                 } else {
                     item.setIcon(R.drawable.baseline_mic_none_24)
                     flag = false
+                }*/
+                // on below line we are calling speech recognizer intent.
+                val intent = Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH)
+
+                // on below line we are passing language model
+                // and model free form in our intent
+                intent.putExtra(
+                    RecognizerIntent.EXTRA_LANGUAGE_MODEL,
+                    RecognizerIntent.LANGUAGE_MODEL_FREE_FORM
+                )
+
+                // on below line we are passing our
+                // language as a default language.
+                intent.putExtra(
+                    RecognizerIntent.EXTRA_LANGUAGE,
+                    Locale.getDefault()
+                )
+
+                // on below line we are specifying a prompt
+                // message as speak to text on below line.
+                intent.putExtra(RecognizerIntent.EXTRA_PROMPT, "Speak to text")
+                intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE, "it-IT")
+                // on below line we are specifying a try catch block.
+                // in this block we are calling a start activity
+                // for result method and passing our result code.
+                try {
+                    startActivityForResult(intent, REQUEST_CODE_SPEECH_INPUT)
+                } catch (e: Exception) {
+                    // on below line we are displaying error message in toast
+                    Toast
+                        .makeText(
+                            this@ShellActivity, " " + e.message,
+                            Toast.LENGTH_SHORT
+                        )
+                        .show()
                 }
                 true
             }
