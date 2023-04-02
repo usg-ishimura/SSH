@@ -1,17 +1,16 @@
 package com.draco.ssh.views
 
-import android.R.menu
-import android.content.ClipData.Item
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.os.Handler
 import android.speech.RecognizerIntent
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.KeyEvent
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
-import android.widget.ImageButton
-import android.os.Handler
 import android.widget.ProgressBar
 import android.widget.ScrollView
 import android.widget.Toast
@@ -29,6 +28,7 @@ import com.google.android.material.textview.MaterialTextView
 import com.jcraft.jsch.*
 import kotlinx.coroutines.*
 import java.util.*
+import android.widget.TextView
 
 
 class ShellActivity : AppCompatActivity() {
@@ -70,7 +70,6 @@ class ShellActivity : AppCompatActivity() {
 
             return@setOnKeyListener false
         }
-
         setupShell()
     }
 
@@ -102,6 +101,9 @@ class ShellActivity : AppCompatActivity() {
         }
         viewModel.getOutputText().observe(this) {
                 output.text = text + "\n" + it
+                outputScrollView.post {
+                    outputScrollView.fullScroll(View.FOCUS_DOWN)
+                }
         }
     }
 
