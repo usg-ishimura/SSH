@@ -16,7 +16,7 @@
                 app:showAsAction="ifRoom" />
         <item
             android:id="@+id/alias"
-            android:title="Alias" />
+            android:title="Voice aliases" />
         <item
             android:id="@+id/share"
             android:icon="@drawable/ic_baseline_share_24"
