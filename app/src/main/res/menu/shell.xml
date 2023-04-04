@@ -2,6 +2,7 @@
 <menu xmlns:tools="http://schemas.android.com/tools"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
+
         <item
             android:id="@+id/microphone"
             android:checkable="false"
@@ -11,8 +12,8 @@
             app:showAsAction="ifRoom" />
         <item
                 android:id="@+id/ctrlc"
-                android:title="@string/ctrlc"
-                android:text="@string/ctrlc"
+                android:title="CTRL+C"
+                android:text="CTRL+C"
                 app:showAsAction="ifRoom" />
         <item
             android:id="@+id/alias"
