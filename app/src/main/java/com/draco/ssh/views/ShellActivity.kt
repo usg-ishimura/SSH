@@ -1,5 +1,6 @@
 package com.draco.ssh.views
 
+import android.content.ClipData
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
@@ -48,7 +49,6 @@ class ShellActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_shell)
-
         progress = findViewById(R.id.progress)
         command = findViewById(R.id.command)
         output = findViewById(R.id.output)
@@ -240,6 +240,11 @@ class ShellActivity : AppCompatActivity() {
                     .putExtra("port", port.toString())
                     .putExtra("username", username)
                     .putExtra("password", password)
+                startActivity(intent)
+                true
+            }
+            R.id.alias -> {
+                val intent = Intent(this, AliasActivity::class.java)
                 startActivity(intent)
                 true
             }

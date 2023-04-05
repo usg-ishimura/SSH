@@ -23,6 +23,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".views.ShellActivity" />
+        <activity android:name=".views.AliasActivity" />
         <provider
             android:name="androidx.core.content.FileProvider"
             android:authorities="${applicationId}.provider"
