@@ -8,11 +8,12 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
         <LinearLayout
+            android:id="@+id/dynamiclinearlayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:paddingHorizontal="16dp">
-            <com.google.android.material.textfield.TextInputLayout
+            <!--<com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="6dp"
@@ -45,8 +46,7 @@
                 android:layout_marginTop="20dp"
                 android:layout_marginBottom="14dp"
                 android:layout_height="1dp"
-                android:tint="?attr/colorControlNormal"
-                android:background="@android:color/darker_gray"/>
+                android:background="?attr/colorControlNormal"/>
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -80,7 +80,41 @@
                 android:layout_marginTop="20dp"
                 android:layout_marginBottom="14dp"
                 android:layout_height="1dp"
-                android:background="@android:color/darker_gray"/>
+                android:background="?attr/colorControlNormal"/>
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="6dp"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+                <com.google.android.material.textfield.TextInputEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="textLongMessage"
+                    android:hint="Voice alias"
+                    android:id="@+id/voicealias2" />
+            </com.google.android.material.textfield.TextInputLayout>
+            <ImageView
+
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:src="@drawable/baseline_arrow_downward_24" />
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+                <com.google.android.material.textfield.TextInputEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="textLongMessage"
+                    android:hint="Shell command"
+                    android:id="@+id/shellcommand2" />
+            </com.google.android.material.textfield.TextInputLayout>
+            <View
+                android:layout_width="match_parent"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="14dp"
+                android:layout_height="1dp"
+                android:background="?attr/colorControlNormal"/>-->
         </LinearLayout>
     </ScrollView>
 
