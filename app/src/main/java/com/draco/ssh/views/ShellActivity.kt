@@ -30,6 +30,10 @@ import com.jcraft.jsch.*
 import kotlinx.coroutines.*
 import java.util.*
 import android.widget.TextView
+import com.google.gson.Gson
+import java.io.FileWriter
+import java.io.PrintWriter
+import kotlin.collections.ArrayList
 
 
 class ShellActivity : AppCompatActivity() {
@@ -251,7 +255,6 @@ class ShellActivity : AppCompatActivity() {
             else -> super.onOptionsItemSelected(item)
         }
     }
-
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         menuInflater.inflate(R.menu.shell, menu)
         return super.onCreateOptionsMenu(menu)

@@ -1,3 +1,4 @@
+
 plugins {
     id 'com.android.application'
     id 'kotlin-android'
@@ -32,6 +33,7 @@ android {
 }
 
 dependencies {
+    implementation 'com.google.code.gson:gson:2.8.7'
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.5.1-native-mt'
     implementation 'androidx.core:core-ktx:1.7.0'

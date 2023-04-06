@@ -1,12 +1,12 @@
 package com.draco.ssh.views
 
+import android.content.Context
+import android.content.SharedPreferences
 import android.os.Bundle
+import android.util.Log
 import android.view.ContextThemeWrapper
-import android.view.View
-import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.LinearLayout
-import android.widget.RelativeLayout
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
@@ -15,6 +15,9 @@ import com.draco.ssh.R
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
 import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
+import com.google.gson.Gson
+import com.google.gson.reflect.TypeToken
+import org.w3c.dom.Text
 
 
 class AliasActivity : AppCompatActivity() {
@@ -22,7 +25,15 @@ class AliasActivity : AppCompatActivity() {
     private lateinit var plus: ExtendedFloatingActionButton
     private lateinit var ll: LinearLayout
     private lateinit var imgv: ImageView
-    private var id: Int = 1
+    private var resIDVASC: Int = 0
+    private lateinit var tietVASC: TextInputEditText
+    private lateinit var tietVA: TextInputEditText
+    private lateinit var tietSC: TextInputEditText
+    private var lunghezzaLista: Int = 0
+    private var IDcount: Int = 0
+    private var saveArrayList: ArrayList<String> = ArrayList<String>()
+    private var savedArrayList: ArrayList<String> = ArrayList<String>()
+    private val gson = Gson()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -30,91 +41,186 @@ class AliasActivity : AppCompatActivity() {
         setContentView(R.layout.activity_alias)
         plus = findViewById(R.id.addalias)
         ll = findViewById(R.id.dynamiclinearlayout)
-        addElemsProgrammatically(id)
+        savedArrayList = readFromJSON()
+        lunghezzaLista = savedArrayList.size
+        IDcount = lunghezzaLista / 2
+        Log.d("TAG", "Saved Array List: $savedArrayList")
+        if(lunghezzaLista === 0) {
+            addJustOneElemProgrammatically(0)
+
+            lunghezzaLista += 2
+            IDcount++
+
+        } else {
+            addMultipleElemsProgrammatically(lunghezzaLista)
+
+            setMultipleElemsText(lunghezzaLista, savedArrayList)
+        }
 
         plus.setOnClickListener {
-            // counter
-            id++
-            addElemsProgrammatically(id)
+
+            addJustOneElemProgrammatically(lunghezzaLista)
+            lunghezzaLista += 2
+            IDcount++
         }
     }
-    fun addElemsProgrammatically(id: Int){
-        val tilVoicealias = TextInputLayout(
-            ContextThemeWrapper(
-                this,
-                R.style.Widget_MaterialComponents_TextInputLayout_OutlinedBox
+    fun addJustOneElemProgrammatically(lunghezzaLista: Int) {
+
+            // setting voice alias programmatically
+            val tilVoicealias = TextInputLayout(
+                ContextThemeWrapper(
+                    this,
+                    R.style.Widget_MaterialComponents_TextInputLayout_OutlinedBox
+                )
             )
-        )
 
-        tilVoicealias.boxBackgroundMode = TextInputLayout.BOX_BACKGROUND_OUTLINE
-        tilVoicealias.boxBackgroundColor =
-            ContextCompat.getColor(tilVoicealias.context, android.R.color.transparent)
-        tilVoicealias.hint = "Voice alias"
+            tilVoicealias.boxBackgroundMode = TextInputLayout.BOX_BACKGROUND_OUTLINE
+            tilVoicealias.boxBackgroundColor =
+                ContextCompat.getColor(tilVoicealias.context, android.R.color.transparent)
+            tilVoicealias.hint = "Voice alias"
 
-        val clpTextInputLayout = ConstraintLayout.LayoutParams(
-            ConstraintLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT
-        )
-        tilVoicealias.layoutParams = clpTextInputLayout
-
-        clpTextInputLayout.topMargin = 10
-        clpTextInputLayout.marginStart = 16
-        clpTextInputLayout.marginEnd = 16
-
-        val edtVoicealias = TextInputEditText(tilVoicealias.context)
-        tilVoicealias.addView(edtVoicealias)
-
-        tilVoicealias.setBoxCornerRadii(10f, 10f, 10f, 10f)
-
-        // setting shell command programmatically
-
-        val tilShellcommand = TextInputLayout(
-            ContextThemeWrapper(
-                this,
-                R.style.Widget_MaterialComponents_TextInputLayout_OutlinedBox
+            val clpTextInputLayout = ConstraintLayout.LayoutParams(
+                ConstraintLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT
             )
-        )
+            tilVoicealias.layoutParams = clpTextInputLayout
 
-        tilShellcommand.boxBackgroundMode = TextInputLayout.BOX_BACKGROUND_OUTLINE
-        tilShellcommand.boxBackgroundColor = ContextCompat.getColor(tilVoicealias.context, android.R.color.transparent)
-        tilShellcommand.hint = "Shell command"
+            clpTextInputLayout.topMargin = 10
+            clpTextInputLayout.marginStart = 16
+            clpTextInputLayout.marginEnd = 16
 
-        val clpTextInputLayoutSC = ConstraintLayout.LayoutParams(
-            ConstraintLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT
-        )
-        tilShellcommand.layoutParams = clpTextInputLayoutSC
+            val edtVoicealias = TextInputEditText(tilVoicealias.context)
+            edtVoicealias.id = lunghezzaLista + 1
+            tilVoicealias.addView(edtVoicealias)
 
-        clpTextInputLayoutSC.topMargin = 0
-        clpTextInputLayoutSC.marginStart = 16
-        clpTextInputLayoutSC.marginEnd = 16
+            tilVoicealias.setBoxCornerRadii(10f, 10f, 10f, 10f)
 
-        val edtShellcommand = TextInputEditText(tilShellcommand.context)
-        tilShellcommand.addView(edtShellcommand)
+            // setting shell command programmatically
 
-        tilShellcommand.setBoxCornerRadii(10f, 10f, 10f, 10f)
+            val tilShellcommand = TextInputLayout(
+                ContextThemeWrapper(
+                    this,
+                    R.style.Widget_MaterialComponents_TextInputLayout_OutlinedBox
+                )
+            )
 
-        // setting arrow down programmatically
+            tilShellcommand.boxBackgroundMode = TextInputLayout.BOX_BACKGROUND_OUTLINE
+            tilShellcommand.boxBackgroundColor =
+                ContextCompat.getColor(tilVoicealias.context, android.R.color.transparent)
+            tilShellcommand.hint = "Shell command"
 
-        imgv = ImageView(this)
-        imgv.setImageResource(R.drawable.baseline_arrow_downward_24)
-        imgv.layoutParams = LinearLayout.LayoutParams(
-            LinearLayout.LayoutParams.MATCH_PARENT,
-            LinearLayout.LayoutParams.WRAP_CONTENT
-        )
+            val clpTextInputLayoutSC = ConstraintLayout.LayoutParams(
+                ConstraintLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT
+            )
+            tilShellcommand.layoutParams = clpTextInputLayoutSC
 
-        val valueTV = TextView(this)
-        valueTV.text = id.toString() + "."
-        val clpTextInputLayoutTV = ConstraintLayout.LayoutParams(
-            ConstraintLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT
-        )
-        valueTV.layoutParams = clpTextInputLayoutTV
-        clpTextInputLayoutTV.topMargin = 10
-        clpTextInputLayoutTV.marginStart = 16
+            clpTextInputLayoutSC.topMargin = 0
+            clpTextInputLayoutSC.marginStart = 16
+            clpTextInputLayoutSC.marginEnd = 16
 
-        // adding elements
+            val edtShellcommand = TextInputEditText(tilShellcommand.context)
+            edtShellcommand.id = lunghezzaLista + 2
+            tilShellcommand.addView(edtShellcommand)
 
-        ll.addView(valueTV)
-        ll.addView(tilVoicealias)
-        ll.addView(imgv)
-        ll.addView(tilShellcommand)
+            tilShellcommand.setBoxCornerRadii(10f, 10f, 10f, 10f)
+
+            // setting arrow down programmatically
+
+            imgv = ImageView(this)
+            imgv.setImageResource(R.drawable.baseline_arrow_downward_24)
+            val imgvParams = LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.MATCH_PARENT,
+                LinearLayout.LayoutParams.WRAP_CONTENT
+            )
+            imgv.layoutParams = imgvParams
+            imgvParams.topMargin = 15
+            val valueTV = TextView(this)
+            valueTV.text = (lunghezzaLista/2 + 1).toString() + "."
+            val clpTextInputLayoutTV = ConstraintLayout.LayoutParams(
+                ConstraintLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT
+            )
+            valueTV.layoutParams = clpTextInputLayoutTV
+            clpTextInputLayoutTV.topMargin = 20
+            clpTextInputLayoutTV.marginStart = 16
+
+            // adding elements
+
+            ll.addView(valueTV)
+            ll.addView(tilVoicealias)
+            ll.addView(imgv)
+            ll.addView(tilShellcommand)
+
+    }
+    fun setMultipleElemsText(lunghezzaLista: Int, fromJSON: ArrayList<String>){
+        for (i in 1 until lunghezzaLista + 1) {
+            resIDVASC = resources.getIdentifier(
+                "$i",
+                "id", packageName
+            )
+            tietVASC = findViewById(resIDVASC)
+            tietVASC.setText(fromJSON.get(i-1))
+        }
+    }
+    fun addMultipleElemsProgrammatically(lunghezzaLista: Int) {
+        var i2 = 0
+        for (i in 0 until lunghezzaLista/2) {
+            addJustOneElemProgrammatically(i2)
+            i2 += 2
+        }
+    }
+    fun saveToJSON(aliases: ArrayList<String>) {
+
+        val path = "aliases.json"
+        try {
+            applicationContext.openFileOutput(path, Context.MODE_PRIVATE).use { output ->
+                val gson = Gson()
+                val jsonString = gson.toJson(aliases)
+                output.write(jsonString.toByteArray())
+            }
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
+    }
+    fun readFromJSON(): ArrayList<String>{
+        var text: String = ""
+        val fileName = "aliases.json"
+        try {
+            applicationContext.openFileInput(fileName).use { stream ->
+                text = stream.bufferedReader().use {
+                    it.readText()
+                }
+            }
+
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
+        val arrayType = object : TypeToken<ArrayList<String>>() {}.type
+        var fromJson: ArrayList<String> = ArrayList<String>()
+        if(text != "") fromJson = gson.fromJson(text, arrayType)
+        return fromJson
+    }
+    override fun onPause() {
+        super.onPause()
+        var i2 = 1
+        for (i in 1 until lunghezzaLista/2 + 1) {
+            //var idLunghezza = i2
+            val resVA = resources.getIdentifier(
+                "$i2",
+                "id", packageName
+            )
+            tietVA = findViewById(resVA)
+            i2++
+            val resSC = resources.getIdentifier(
+                "$i2",
+                "id", packageName
+            )
+            tietSC = findViewById(resSC)
+            if(tietVA.text.toString() != "" || tietSC.text.toString() != "") {
+                saveArrayList.add(tietVA.text.toString())
+                saveArrayList.add(tietSC.text.toString())
+            }
+            i2++
+        }
+        saveToJSON(saveArrayList)
+        Log.d("TAG", "Saving Array List: $saveArrayList")
     }
 }
