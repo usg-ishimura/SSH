@@ -1,4 +1,4 @@
-# SSH
+# Mic2Shell
 A simple, voice controlled Android SSH client.
 
 # Why?
