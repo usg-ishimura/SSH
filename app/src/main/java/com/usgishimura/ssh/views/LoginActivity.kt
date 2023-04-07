@@ -1,23 +1,20 @@
-package com.draco.ssh.views
+package com.usgishimura.ssh.views
 
 import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
-import android.os.Handler
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.FileProvider
 import androidx.security.crypto.EncryptedSharedPreferences
 import androidx.security.crypto.MasterKey
-import com.draco.ssh.BuildConfig
-import com.draco.ssh.R
-import com.draco.ssh.viewmodels.LoginActivityViewModel
+import com.usgishimura.ssh.BuildConfig
+import com.usgishimura.ssh.R
+import com.usgishimura.ssh.viewmodels.LoginActivityViewModel
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
 import com.google.android.material.textfield.TextInputEditText
 import java.io.File
-import android.content.Context
-import android.util.Log
 
 class LoginActivity : AppCompatActivity() {
     private val viewModel: LoginActivityViewModel by viewModels()

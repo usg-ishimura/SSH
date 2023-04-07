@@ -1,4 +1,4 @@
-package com.draco.ssh.views
+package com.usgishimura.ssh.views
 
 import android.content.Context
 import android.os.Bundle
@@ -10,13 +10,12 @@ import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
-import com.draco.ssh.R
+import com.usgishimura.ssh.R
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
 import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
-import org.w3c.dom.Text
 
 
 class AliasActivity : AppCompatActivity() {

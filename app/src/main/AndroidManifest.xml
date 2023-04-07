@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.draco.ssh">
+    package="com.usgishimura.ssh">
 
     <uses-feature android:name="android.software.leanback" android:required="false" />
     <uses-feature android:name="android.hardware.touchscreen" android:required="false" />
@@ -14,7 +14,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.SSH"
         android:banner="@drawable/banner">
-        <activity android:name=".views.LoginActivity"
+        <activity android:name="com.usgishimura.ssh.views.LoginActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -22,8 +22,8 @@
                 <category android:name="android.intent.category.LEANBACK_LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".views.ShellActivity" />
-        <activity android:name=".views.AliasActivity" />
+        <activity android:name="com.usgishimura.ssh.views.ShellActivity" />
+        <activity android:name="com.usgishimura.ssh.views.AliasActivity" />
         <provider
             android:name="androidx.core.content.FileProvider"
             android:authorities="${applicationId}.provider"

@@ -9,7 +9,7 @@ android {
     buildToolsVersion "30.0.3"
 
     defaultConfig {
-        applicationId "com.draco.ssh"
+        applicationId "com.usgishimura.ssh"
         minSdkVersion 21
         targetSdkVersion 31
         versionCode 10
