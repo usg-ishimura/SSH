@@ -144,6 +144,7 @@ class ShellActivity : AppCompatActivity() {
                     if(i % 2 != 0 && sentence==fromJSON.get(i-1).toString().lowercase().filter { !it.isWhitespace() }){
                         command.setTextColor(Color.parseColor("#3498db"))
                         aliasCommand = fromJSON.get(i)
+                        break
                     }
                 }
                 // on below line we are setting data

@@ -30,11 +30,13 @@ class AliasActivity : AppCompatActivity() {
     private var lunghezzaLista: Int = 0
     private var saveArrayList: ArrayList<String> = ArrayList<String>()
     private var savedArrayList: ArrayList<String> = ArrayList<String>()
+    private var flag: Boolean = false
     private val gson = Gson()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
+        Log.d("TAG", "onCreateCalled")
+        flag = true
         setContentView(R.layout.activity_alias)
         plus = findViewById(R.id.addalias)
         ll = findViewById(R.id.dynamiclinearlayout)
@@ -194,27 +196,32 @@ class AliasActivity : AppCompatActivity() {
     }
     override fun onPause() {
         super.onPause()
-        var i2 = 1
-        for (i in 1 until lunghezzaLista/2 + 1) {
-            //var idLunghezza = i2
-            val resVA = resources.getIdentifier(
-                "$i2",
-                "id", packageName
-            )
-            tietVA = findViewById(resVA)
-            i2++
-            val resSC = resources.getIdentifier(
-                "$i2",
-                "id", packageName
-            )
-            tietSC = findViewById(resSC)
-            if(tietVA.text.toString() != "" || tietSC.text.toString() != "") {
-                saveArrayList.add(tietVA.text.toString())
-                saveArrayList.add(tietSC.text.toString())
+        if(flag) {
+            var i2 = 1
+            Log.d("TAG", "onPauseCalled")
+            for (i in 1 until lunghezzaLista / 2 + 1) {
+                //var idLunghezza = i2
+                val resVA = resources.getIdentifier(
+                    "$i2",
+                    "id", packageName
+                )
+                tietVA = findViewById(resVA)
+                i2++
+                val resSC = resources.getIdentifier(
+                    "$i2",
+                    "id", packageName
+                )
+                tietSC = findViewById(resSC)
+                if (tietVA.text.toString() != "" || tietSC.text.toString() != "") {
+                    saveArrayList.add(tietVA.text.toString())
+                    saveArrayList.add(tietSC.text.toString())
+                }
+                i2++
             }
-            i2++
+            saveToJSON(saveArrayList)
+            Log.d("TAG", "Saving Array List: $saveArrayList")
         }
-        saveToJSON(saveArrayList)
-        Log.d("TAG", "Saving Array List: $saveArrayList")
+        flag = false
+
     }
 }
