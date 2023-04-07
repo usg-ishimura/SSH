@@ -138,10 +138,10 @@ class ShellActivity : AppCompatActivity() {
 
                 var aliasCommand: String = Objects.requireNonNull(res)[0].toString()
                 val fromJSON: ArrayList<String> = AliasActivity().readFromJSON(applicationContext)
-                val sentence: String = Objects.requireNonNull(res)[0].toString().trim().lowercase()
+                val sentence: String = Objects.requireNonNull(res)[0].toString().lowercase().filter { !it.isWhitespace() }
                 val defaultTextColor = command.textColors.defaultColor
                 for (i in 1 until fromJSON.size+1) {
-                    if(i % 2 != 0 && sentence==fromJSON.get(i-1).toString().trim().lowercase()){
+                    if(i % 2 != 0 && sentence==fromJSON.get(i-1).toString().lowercase().filter { !it.isWhitespace() }){
                         command.setTextColor(Color.parseColor("#3498db"))
                         aliasCommand = fromJSON.get(i)
                     }
