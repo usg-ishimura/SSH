@@ -3,11 +3,13 @@ package com.draco.ssh.views
 import android.content.ClipData
 import android.content.Context
 import android.content.Intent
+import android.graphics.Color
 import android.os.Bundle
 import android.os.Handler
 import android.speech.RecognizerIntent
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.Log
 import android.view.KeyEvent
 import android.view.Menu
 import android.view.MenuItem
@@ -142,13 +144,22 @@ class ShellActivity : AppCompatActivity() {
                 val res: ArrayList<String> =
                     data.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS) as ArrayList<String>
 
+                var aliasCommand: String = Objects.requireNonNull(res)[0].toString()
+                val fromJSON: ArrayList<String> = AliasActivity().readFromJSON(applicationContext)
+                val sentence: String = Objects.requireNonNull(res)[0].toString().trim().lowercase()
+                for (i in 1 until fromJSON.size+1) {
+                    if(i % 2 != 0 && sentence==fromJSON.get(i-1).toString().trim().lowercase()){
+                        command.setTextColor(Color.parseColor("#3498db"))
+                        aliasCommand = fromJSON.get(i)
+                    }
+                }
                 // on below line we are setting data
                 // to our output text view.
                 command.setText(
                     Objects.requireNonNull(res)[0]
                 )
                 Handler().postDelayed({
-                    viewModel.shell.send(command.text.toString())
+                    viewModel.shell.send(aliasCommand)
                     command.setText("")
                 }, 1500)
             }
@@ -207,7 +218,8 @@ class ShellActivity : AppCompatActivity() {
                 // on below line we are specifying a prompt
                 // message as speak to text on below line.
                 intent.putExtra(RecognizerIntent.EXTRA_PROMPT, "Speak to text")
-                intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE, "it-IT")
+                //intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE, Locale.getDefault().toLanguageTag().toString())
+                //Log.d("TAG", Locale.getDefault().toLanguageTag().toString())
                 // on below line we are specifying a try catch block.
                 // in this block we are calling a start activity
                 // for result method and passing our result code.

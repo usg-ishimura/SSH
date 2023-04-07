@@ -1,7 +1,6 @@
 package com.draco.ssh.views
 
 import android.content.Context
-import android.content.SharedPreferences
 import android.os.Bundle
 import android.util.Log
 import android.view.ContextThemeWrapper
@@ -30,7 +29,6 @@ class AliasActivity : AppCompatActivity() {
     private lateinit var tietVA: TextInputEditText
     private lateinit var tietSC: TextInputEditText
     private var lunghezzaLista: Int = 0
-    private var IDcount: Int = 0
     private var saveArrayList: ArrayList<String> = ArrayList<String>()
     private var savedArrayList: ArrayList<String> = ArrayList<String>()
     private val gson = Gson()
@@ -41,15 +39,13 @@ class AliasActivity : AppCompatActivity() {
         setContentView(R.layout.activity_alias)
         plus = findViewById(R.id.addalias)
         ll = findViewById(R.id.dynamiclinearlayout)
-        savedArrayList = readFromJSON()
+        savedArrayList = readFromJSON(applicationContext)
         lunghezzaLista = savedArrayList.size
-        IDcount = lunghezzaLista / 2
         Log.d("TAG", "Saved Array List: $savedArrayList")
         if(lunghezzaLista === 0) {
             addJustOneElemProgrammatically(0)
 
             lunghezzaLista += 2
-            IDcount++
 
         } else {
             addMultipleElemsProgrammatically(lunghezzaLista)
@@ -61,7 +57,6 @@ class AliasActivity : AppCompatActivity() {
 
             addJustOneElemProgrammatically(lunghezzaLista)
             lunghezzaLista += 2
-            IDcount++
         }
     }
     fun addJustOneElemProgrammatically(lunghezzaLista: Int) {
@@ -180,11 +175,11 @@ class AliasActivity : AppCompatActivity() {
             e.printStackTrace()
         }
     }
-    fun readFromJSON(): ArrayList<String>{
+    fun readFromJSON(appContext: Context): ArrayList<String>{
         var text: String = ""
         val fileName = "aliases.json"
         try {
-            applicationContext.openFileInput(fileName).use { stream ->
+            appContext.openFileInput(fileName).use { stream ->
                 text = stream.bufferedReader().use {
                     it.readText()
                 }
