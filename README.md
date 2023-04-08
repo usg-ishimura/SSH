@@ -2,7 +2,7 @@
 A simple, voice controlled Android SSH client.
 
 # Why?
-The SSH client i forked this repo from was simple and effective enough to let me implement a voice control system over it. Shell commands get paired with voice aliases and auto sent to the remote server, this app might come handy for monitoring and configuring servers without retyping commands every single time
+The SSH client i forked this repo from was simple and effective enough to let me implement a voice control system over it. This app converts speech to shell commands. When an alias is triggered with voice the respective command is auto sent to the remote server, might come handy for monitoring and configuring servers without retyping commands every single time
 
 <p float="left">
 <img src="https://user-images.githubusercontent.com/103458862/230665650-471bc6c8-adc6-48cf-afe9-aa26f5a3a026.jpg" height="700">
