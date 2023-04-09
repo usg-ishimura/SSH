@@ -3,6 +3,7 @@ package com.usgishimura.ssh.views
 import android.content.Context
 import android.content.Intent
 import android.graphics.Color
+import android.os.Build
 import android.os.Bundle
 import android.os.Handler
 import android.speech.RecognizerIntent
@@ -14,20 +15,20 @@ import android.widget.ProgressBar
 import android.widget.ScrollView
 import android.widget.Toast
 import androidx.activity.viewModels
+import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.FileProvider
-import com.usgishimura.ssh.BuildConfig
-import com.usgishimura.ssh.R
-import com.usgishimura.ssh.viewmodels.ShellActivityViewModel
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textview.MaterialTextView
 import com.jcraft.jsch.*
+import com.usgishimura.ssh.BuildConfig
+import com.usgishimura.ssh.R
+import com.usgishimura.ssh.viewmodels.ShellActivityViewModel
 import kotlinx.coroutines.*
 import java.util.*
-import kotlin.collections.ArrayList
 
 
 class ShellActivity : AppCompatActivity() {
@@ -40,10 +41,10 @@ class ShellActivity : AppCompatActivity() {
     // on below line we are creating variables
     // for text input edit
     private lateinit var command: TextInputEditText
-    //private lateinit var microphone: Item
     // on below line we are creating a constant value
     private val REQUEST_CODE_SPEECH_INPUT = 1
 
+    @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_shell)
@@ -71,6 +72,7 @@ class ShellActivity : AppCompatActivity() {
         setupShell()
     }
 
+    @RequiresApi(Build.VERSION_CODES.O)
     private fun setupShell() {
         val address = intent.getStringExtra("address")!!
         val port = try {
@@ -98,10 +100,12 @@ class ShellActivity : AppCompatActivity() {
             e.printStackTrace()
         }
         viewModel.getOutputText().observe(this) {
+                output.isFocusable = false
                 output.text = text + "\n" + it
-                outputScrollView.post {
-                    outputScrollView.fullScroll(View.FOCUS_DOWN)
-                }
+                output.isFocusable = true
+                output.isFocusableInTouchMode = true
+                output.setTextIsSelectable(true)
+                outputScrollView.post(java.lang.Runnable { outputScrollView.fullScroll(ScrollView.FOCUS_DOWN) })
         }
     }
 
@@ -142,7 +146,7 @@ class ShellActivity : AppCompatActivity() {
                 val defaultTextColor = command.textColors.defaultColor
                 for (i in 1 until fromJSON.size+1) {
                     if(i % 2 != 0 && sentence==fromJSON.get(i-1).toString().lowercase().filter { !it.isWhitespace() }){
-                        command.setTextColor(Color.parseColor("#3498db"))
+                        command.setTextColor(Color.parseColor("#00FF00"))
                         aliasCommand = fromJSON.get(i)
                         break
                     }
@@ -186,13 +190,6 @@ class ShellActivity : AppCompatActivity() {
                 true
             }
             R.id.microphone -> {
-                /*if(flag === false) {
-                    item.setIcon(R.drawable.baseline_mic_24)
-                    flag = true
-                } else {
-                    item.setIcon(R.drawable.baseline_mic_none_24)
-                    flag = false
-                }*/
                 // on below line we are calling speech recognizer intent.
                 val intent = Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH)
 

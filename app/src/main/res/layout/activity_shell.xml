@@ -32,13 +32,16 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginTop="16dp"
-            android:id="@+id/output_scrollview">
+            android:id="@+id/output_scrollview"
+            >
+
             <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/output"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textIsSelectable="true"
-                android:id="@+id/output"
-                android:focusableInTouchMode="true" />
+                android:focusable="true"
+                android:focusableInTouchMode="true"
+                android:textIsSelectable="true" />
         </ScrollView>
     </LinearLayout>
 </RelativeLayout>
