@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.os.Environment
 import android.util.Log
 import android.view.ContextThemeWrapper
+import android.view.View
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.ScrollView
@@ -59,6 +60,10 @@ class AliasActivity : AppCompatActivity() {
         plus.setOnClickListener {
 
             addJustOneElemProgrammatically(lunghezzaLista)
+            var aliasScrollView: ScrollView = findViewById(R.id.aliasscrollview)
+            aliasScrollView.post {
+                aliasScrollView.fullScroll(View.FOCUS_DOWN)
+            }
             lunghezzaLista += 2
         }
     }
@@ -146,9 +151,6 @@ class AliasActivity : AppCompatActivity() {
             ll.addView(tilVoicealias)
             ll.addView(imgv)
             ll.addView(tilShellcommand)
-            var aliasScrollView: ScrollView = findViewById(R.id.aliasscrollview)
-            aliasScrollView.post(java.lang.Runnable { aliasScrollView.fullScroll(ScrollView.FOCUS_DOWN) })
-
     }
     fun setMultipleElemsText(lunghezzaLista: Int, fromJSON: ArrayList<String>){
         for (i in 1 until lunghezzaLista + 1) {
