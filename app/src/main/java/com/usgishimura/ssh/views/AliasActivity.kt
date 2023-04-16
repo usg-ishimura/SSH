@@ -2,20 +2,24 @@ package com.usgishimura.ssh.views
 
 import android.content.Context
 import android.os.Bundle
+import android.os.Environment
 import android.util.Log
 import android.view.ContextThemeWrapper
 import android.widget.ImageView
 import android.widget.LinearLayout
+import android.widget.ScrollView
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
-import com.usgishimura.ssh.R
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
 import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
+import com.usgishimura.ssh.R
+import java.io.File
+import java.io.FileOutputStream
 
 
 class AliasActivity : AppCompatActivity() {
@@ -30,13 +34,11 @@ class AliasActivity : AppCompatActivity() {
     private var lunghezzaLista: Int = 0
     private var saveArrayList: ArrayList<String> = ArrayList<String>()
     private var savedArrayList: ArrayList<String> = ArrayList<String>()
-    private var flag: Boolean = false
     private val gson = Gson()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         Log.d("TAG", "onCreateCalled")
-        flag = true
         setContentView(R.layout.activity_alias)
         plus = findViewById(R.id.addalias)
         ll = findViewById(R.id.dynamiclinearlayout)
@@ -144,6 +146,8 @@ class AliasActivity : AppCompatActivity() {
             ll.addView(tilVoicealias)
             ll.addView(imgv)
             ll.addView(tilShellcommand)
+            var aliasScrollView: ScrollView = findViewById(R.id.aliasscrollview)
+            aliasScrollView.post(java.lang.Runnable { aliasScrollView.fullScroll(ScrollView.FOCUS_DOWN) })
 
     }
     fun setMultipleElemsText(lunghezzaLista: Int, fromJSON: ArrayList<String>){
@@ -171,6 +175,8 @@ class AliasActivity : AppCompatActivity() {
                 val gson = Gson()
                 val jsonString = gson.toJson(aliases)
                 output.write(jsonString.toByteArray())
+                output.flush()
+                output.close()
             }
         } catch (e: Exception) {
             e.printStackTrace()
@@ -196,32 +202,30 @@ class AliasActivity : AppCompatActivity() {
     }
     override fun onPause() {
         super.onPause()
-        if(flag) {
-            var i2 = 1
-            Log.d("TAG", "onPauseCalled")
-            for (i in 1 until lunghezzaLista / 2 + 1) {
-                //var idLunghezza = i2
-                val resVA = resources.getIdentifier(
-                    "$i2",
-                    "id", packageName
-                )
-                tietVA = findViewById(resVA)
-                i2++
-                val resSC = resources.getIdentifier(
-                    "$i2",
-                    "id", packageName
-                )
-                tietSC = findViewById(resSC)
-                if (tietVA.text.toString() != "" || tietSC.text.toString() != "") {
-                    saveArrayList.add(tietVA.text.toString())
-                    saveArrayList.add(tietSC.text.toString())
-                }
-                i2++
+        saveArrayList.clear()
+        var i2 = 1
+        Log.d("TAG", "onPauseCalled")
+        for (i in 1 until lunghezzaLista / 2 + 1) {
+            //var idLunghezza = i2
+            val resVA = resources.getIdentifier(
+                "$i2",
+                "id", packageName
+            )
+            tietVA = findViewById(resVA)
+            i2++
+            val resSC = resources.getIdentifier(
+                "$i2",
+                "id", packageName
+            )
+            tietSC = findViewById(resSC)
+            if (tietVA.text.toString() != "" || tietSC.text.toString() != "") {
+                saveArrayList.add(tietVA.text.toString())
+                saveArrayList.add(tietSC.text.toString())
             }
-            saveToJSON(saveArrayList)
-            Log.d("TAG", "Saving Array List: $saveArrayList")
+            i2++
         }
-        flag = false
+        saveToJSON(saveArrayList)
+        Log.d("TAG", "Saving Array List: $saveArrayList")
 
     }
 }
