@@ -3,8 +3,10 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:paddingTop="16dp">
-    <ScrollView
+    android:paddingTop="16dp"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".views.AliasActivity">
+    <com.usgishimura.ssh.utils.NonFocusingScrollView
         android:id="@+id/aliasscrollview"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
@@ -117,8 +119,7 @@
                 android:layout_height="1dp"
                 android:background="?attr/colorControlNormal"/>-->
         </LinearLayout>
-    </ScrollView>
-
+    </com.usgishimura.ssh.utils.NonFocusingScrollView>
     <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
         android:id="@+id/addalias"
         android:layout_width="wrap_content"

@@ -64,6 +64,13 @@ class AliasActivity : AppCompatActivity() {
             aliasScrollView.post {
                 aliasScrollView.fullScroll(View.FOCUS_DOWN)
             }
+            /*val lastvoicealias = lunghezzaLista + 1
+            val resIDLVA = resources.getIdentifier(
+                "$lastvoicealias",
+                "id", packageName
+            )
+            val tietLVA: TextInputEditText = findViewById(resIDLVA)
+            tietLVA.requestFocus()*/
             lunghezzaLista += 2
         }
     }
