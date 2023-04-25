@@ -168,6 +168,9 @@ class ShellActivity : AppCompatActivity() {
         return when (item.itemId) {
             R.id.share -> {
                 try {
+                    var content = viewModel.shell.outputBufferFile.readText()
+                    content = content.replace("(\\x1b\\x5b|\\x9b)[\\x30-\\x3f]*[\\x20-\\x2f]*[\\x40-\\x7e]".toRegex(),"");
+                    viewModel.shell.outputBufferFile.writeText(content)
                     val uri = FileProvider.getUriForFile(
                         this,
                         BuildConfig.APPLICATION_ID + ".provider",
@@ -230,6 +233,7 @@ class ShellActivity : AppCompatActivity() {
             }
             R.id.ctrlc -> {
                 var outputbuffertext: String = viewModel.shell.outputBufferFile.readText()
+                outputbuffertext = outputbuffertext.replace("(\\x1b\\x5b|\\x9b)[\\x30-\\x3f]*[\\x20-\\x2f]*[\\x40-\\x7e]".toRegex(),"");
                 val fileName = "buffer.txt"
                 val fileBody = outputbuffertext
                 applicationContext.openFileOutput(fileName, Context.MODE_PRIVATE).use {
