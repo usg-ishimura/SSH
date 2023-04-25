@@ -34,8 +34,9 @@ class ShellActivityViewModel(application: Application) : AndroidViewModel(applic
     }
 
     private fun updateOutputText(file: File) {
-        val out = readOutputFile(file)
-        val currentText = getOutputText().value
+        var out = readOutputFile(file)
+        var currentText = getOutputText().value
+        out = out.replace("(\\x1b\\x5b|\\x9b)[\\x30-\\x3f]*[\\x20-\\x2f]*[\\x40-\\x7e]".toRegex(),"");
         if (out != currentText)
             outputText.postValue(out)
     }
