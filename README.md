@@ -14,4 +14,4 @@ navigate to:
 Create a new service account, and download the JSON credentials file. Put the file in the app
 resources as `app/src/main/res/raw/credential.json`.
 3. Compile it and try it on emulators with Android Studio
-4. Side load APK to your smartwatch
+4. Sideload APK to your smartwatch
