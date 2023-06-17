@@ -7,5 +7,5 @@ navigate to:
 `API Manager > Credentials > Create credentials > Service account key > New service account`.
 Create a new service account, and download the JSON credentials file. Put the file in the app
 resources as `app/src/main/res/raw/credential.json`.
-2. Compile with Android Studio
+2. Compile it and try it with the emulators on Android Studio
 3. Sideload APK to your smartwatch
