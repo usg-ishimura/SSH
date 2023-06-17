@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:paddingTop="16dp">
+    android:paddingTop="5dp">
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
@@ -15,20 +15,25 @@
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+                style="@style/MyDenseOutlined"
+                app:boxStrokeColor="#837D7D"
+                android:textColorHint="#837D7D"
+                >
                 <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="textUri"
                     android:hint="@string/input_address"
-                    android:id="@+id/address" />
+                    android:id="@+id/address"/>
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:paddingTop="12dp"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+                style="@style/MyDenseOutlined"
+                app:boxStrokeColor="#837D7D"
+                android:textColorHint="#837D7D">
                 <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -41,7 +46,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:paddingTop="12dp"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+                style="@style/MyDenseOutlined"
+                app:boxStrokeColor="#837D7D"
+                android:textColorHint="#837D7D">
                 <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -54,7 +61,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:paddingTop="12dp"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+                style="@style/MyDenseOutlined"
+                app:boxStrokeColor="#837D7D"
+                android:textColorHint="#837D7D">
                 <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -67,6 +76,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/button_pubkey"
+                android:layout_marginBottom="50dp"
                 style="@style/Widget.MaterialComponents.Button.TextButton"
                 android:id="@+id/pubkey" />
         </LinearLayout>
@@ -81,7 +91,7 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
-        android:layout_marginBottom="16dp"
+        android:layout_marginBottom="0dp"
         android:text="@string/button_start"
         android:textColor="#FFFFFF"
         app:icon="@drawable/ic_baseline_check_24"

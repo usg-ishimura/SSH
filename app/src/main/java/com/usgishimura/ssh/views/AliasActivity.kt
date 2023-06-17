@@ -1,6 +1,8 @@
 package com.usgishimura.ssh.views
 
 import android.content.Context
+import android.content.res.ColorStateList
+import android.graphics.Color
 import android.os.Bundle
 import android.os.Environment
 import android.util.Log
@@ -11,6 +13,7 @@ import android.widget.LinearLayout
 import android.widget.ScrollView
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.content.res.AppCompatResources
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
@@ -80,8 +83,8 @@ class AliasActivity : AppCompatActivity() {
             val tilVoicealias = TextInputLayout(
                 ContextThemeWrapper(
                     this,
-                    R.style.Widget_MaterialComponents_TextInputLayout_OutlinedBox
-                )
+                    R.style.MyThemeOverlayOutlinedDense
+                ), null, 0
             )
 
             tilVoicealias.boxBackgroundMode = TextInputLayout.BOX_BACKGROUND_OUTLINE
@@ -102,6 +105,23 @@ class AliasActivity : AppCompatActivity() {
             edtVoicealias.id = lunghezzaLista + 1
             tilVoicealias.addView(edtVoicealias)
 
+            val states = arrayOf(
+                intArrayOf(-android.R.attr.state_focused), // unfocused
+                intArrayOf(android.R.attr.state_focused) //focused
+            )
+
+            val colors = intArrayOf(
+                Color.rgb(131,125,125),
+                Color.rgb(131,125,125)
+            )
+            val colorsHint = intArrayOf(
+                Color.rgb(131,125,125),
+                Color.rgb(52,152,219)
+            )
+            val myList = ColorStateList(states, colors)
+            val myHintList = ColorStateList(states, colorsHint)
+            tilVoicealias.setBoxStrokeColorStateList(myList)
+            tilVoicealias.defaultHintTextColor = myHintList;
             tilVoicealias.setBoxCornerRadii(10f, 10f, 10f, 10f)
 
             // setting shell command programmatically
@@ -109,15 +129,14 @@ class AliasActivity : AppCompatActivity() {
             val tilShellcommand = TextInputLayout(
                 ContextThemeWrapper(
                     this,
-                    R.style.Widget_MaterialComponents_TextInputLayout_OutlinedBox
-                )
+                    R.style.MyThemeOverlayOutlinedDense
+                ), null, 0
             )
 
             tilShellcommand.boxBackgroundMode = TextInputLayout.BOX_BACKGROUND_OUTLINE
             tilShellcommand.boxBackgroundColor =
                 ContextCompat.getColor(tilVoicealias.context, android.R.color.transparent)
             tilShellcommand.hint = "Shell command"
-
             val clpTextInputLayoutSC = ConstraintLayout.LayoutParams(
                 ConstraintLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT
             )
@@ -131,6 +150,8 @@ class AliasActivity : AppCompatActivity() {
             edtShellcommand.id = lunghezzaLista + 2
             tilShellcommand.addView(edtShellcommand)
 
+            tilShellcommand.setBoxStrokeColorStateList(myList);
+            tilShellcommand.defaultHintTextColor = myHintList;
             tilShellcommand.setBoxCornerRadii(10f, 10f, 10f, 10f)
 
             // setting arrow down programmatically

@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:paddingTop="16dp"
+    android:paddingTop="5dp"
     xmlns:tools="http://schemas.android.com/tools"
     tools:context=".views.AliasActivity">
     <com.usgishimura.ssh.utils.NonFocusingScrollView
@@ -120,19 +120,20 @@
                 android:background="?attr/colorControlNormal"/>-->
         </LinearLayout>
     </com.usgishimura.ssh.utils.NonFocusingScrollView>
+
     <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
         android:id="@+id/addalias"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="33dp"
+        android:layout_height="30dp"
         android:layout_alignParentEnd="true"
         android:layout_alignParentBottom="true"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginBottom="16dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="5dp"
+        android:layout_marginBottom="27dp"
+        android:hint="Add alias"
         android:textColor="#FFFFFF"
         app:icon="@drawable/baseline_add_24"
         app:iconSize="30dp"
-        android:hint="Add alias"
         app:iconTint="#FFFFFF" />
 </RelativeLayout>

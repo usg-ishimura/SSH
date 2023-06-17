@@ -9,8 +9,8 @@
     <string name="input_username">Username</string>
     <string name="input_password">Password</string>
     <string name="button_pubkey">Share RSA public key</string>
-    <string name="button_start">Let\'s go!</string>
-
+    <string name="button_start">Let\'s go</string>
+    <string name="default_font" translatable="false">monospace</string>
     <string name="command_hint">Shell command</string>
 
     <string name="error_title">Connection failure</string>

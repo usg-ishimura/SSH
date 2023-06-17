@@ -1,4 +1,4 @@
-<resources xmlns:tools="http://schemas.android.com/tools">
+<!--<resources xmlns:tools="http://schemas.android.com/tools">
     <style name="Theme.SSH" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
         <item name="colorPrimary">@color/primary</item>
         <item name="colorSecondary">@color/primary</item>
@@ -6,4 +6,21 @@
         <item name="android:navigationBarColor" tools:targetApi="lollipop">?colorSurface</item>
         <item name="fontFamily">monospace</item>
     </style>
+</resources>-->
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <style name="Theme.SSH" parent="Theme.MaterialComponents.DayNight.Bridge">
+        <item name="android:textCursorDrawable">@null</item>
+        <item name="android:actionBarSize">35dp</item>
+        <item name="actionBarSize">35dp</item>
+        <item name="colorPrimary">@color/primary</item>
+        <item name="colorSecondary">@color/primary</item>
+        <item name="android:textColorPrimary">#fff</item>
+        <item name="android:itemBackground">@color/ic_launcher_background</item>
+        <item name="android:textColor">#fff</item>
+        <item name="android:windowBackground">@color/ic_launcher_background</item>
+        <item name="android:statusBarColor" tools:targetApi="lollipop">@color/ic_launcher_background</item>
+        <item name="android:navigationBarColor" tools:targetApi="lollipop">@color/ic_launcher_background</item>
+        <item name="fontFamily">@string/default_font</item>
+    </style>
+
 </resources>
