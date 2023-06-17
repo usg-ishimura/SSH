@@ -15,5 +15,3 @@ Create a new service account, and download the JSON credentials file. Put the fi
 resources as `app/src/main/res/raw/credential.json`.
 3. Compile it and try it on emulators with Android Studio
 4. Side load APK to your smartwatch
-## Features
-Under voice aliases section you can assign a shell command to a voice alias, every time you input with voice the alias value the respective shell command is triggered
