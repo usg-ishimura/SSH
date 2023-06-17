@@ -1,5 +1,5 @@
 # Mic2Shell
-Code for the wearable version of mic2Shell
+Code for the wearable version of mic2Shell, a simple voice controlled SSH client
 ## Requirements to run
 \- Microphone on the wearable device  
 \- Wear OS / Android Wear  
