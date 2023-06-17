@@ -5,7 +5,7 @@ Code for the wearable version of mic2Shell
 \- Wear OS / Android Wear  
 \- Google Cloud speech to text APIs credentials  
 \- Remote SSH server to access to  
-\- Additionally you can install shell_gpt on the remote SSH server to talk to Chat GPT or to make it execute shell commands
+\- Additionally you can install shell_gpt on the remote SSH server to talk to Chat GPT or to make it execute shell commands through mic2Shell
 ## Usage
 1. In order to try out this code, visit the [Cloud Console](https://console.cloud.google.com/), and
 navigate to:
