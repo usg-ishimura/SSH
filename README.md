@@ -3,7 +3,7 @@ Code for the wearable version of mic2Shell, a simple voice controlled Android SS
 ## Requirements to run
 \- Microphone on the wearable device  
 \- Wear OS / Android Wear  
-\- Google Cloud speech to text APIs credentials
+\- Google Cloud speech to text APIs credentials  
 \- Remote SSH server to access to, you can make a free account at [xshellz](https://www.xshellz.com/)  
 \- Additionally you can install [shell_gpt](https://github.com/TheR1D/shell_gpt) on the remote SSH server to talk to Chat GPT or to make it execute shell commands through mic2Shell
 ## Usage
