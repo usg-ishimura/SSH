@@ -6,6 +6,7 @@ import android.content.ContentValues.TAG
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.content.res.ColorStateList
 import android.graphics.Color
 import android.os.Build
 import android.os.Bundle
@@ -23,6 +24,7 @@ import androidx.core.content.FileProvider
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.textfield.TextInputEditText
+import com.google.android.material.textfield.TextInputLayout
 import com.google.android.material.textview.MaterialTextView
 import com.google.api.gax.rpc.ApiStreamObserver
 import com.google.auth.oauth2.GoogleCredentials
@@ -41,6 +43,7 @@ class ShellActivity : AppCompatActivity() {
     private lateinit var progress: ProgressBar
     private lateinit var output: MaterialTextView
     private lateinit var outputScrollView: ScrollView
+    private lateinit var tilcommand: TextInputLayout
     //private var flag: Boolean = false
     private lateinit var errorDialog: AlertDialog
     // on below line we are creating variables
@@ -80,6 +83,17 @@ class ShellActivity : AppCompatActivity() {
         command = findViewById(R.id.command)
         output = findViewById(R.id.output)
         outputScrollView = findViewById(R.id.output_scrollview)
+        tilcommand = findViewById(R.id.tilcommand)
+        val states = arrayOf(
+            intArrayOf(-android.R.attr.state_focused), // unfocused
+            intArrayOf(android.R.attr.state_focused) //focused
+        )
+        val colorsHint = intArrayOf(
+            Color.rgb(131,125,125),
+            Color.rgb(52,152,219)
+        )
+        val myHintList = ColorStateList(states, colorsHint)
+        tilcommand.defaultHintTextColor = myHintList;
         errorDialog = MaterialAlertDialogBuilder(this)
             .setTitle(R.string.error_title)
             .setPositiveButton(R.string.error_disconnect) { _, _ -> finish() }

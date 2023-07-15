@@ -18,6 +18,7 @@
                 style="@style/MyDenseOutlined"
                 app:boxStrokeColor="#837D7D"
                 android:textColorHint="#837D7D"
+                android:id="@+id/tiladdress"
                 >
                 <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
@@ -33,7 +34,8 @@
                 android:paddingTop="12dp"
                 style="@style/MyDenseOutlined"
                 app:boxStrokeColor="#837D7D"
-                android:textColorHint="#837D7D">
+                android:textColorHint="#837D7D"
+                android:id="@+id/tilport">
                 <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -48,7 +50,8 @@
                 android:paddingTop="12dp"
                 style="@style/MyDenseOutlined"
                 app:boxStrokeColor="#837D7D"
-                android:textColorHint="#837D7D">
+                android:textColorHint="#837D7D"
+                android:id="@+id/tilusername">
                 <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -63,7 +66,8 @@
                 android:paddingTop="12dp"
                 style="@style/MyDenseOutlined"
                 app:boxStrokeColor="#837D7D"
-                android:textColorHint="#837D7D">
+                android:textColorHint="#837D7D"
+                android:id="@+id/tilpassword">
                 <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -77,6 +81,7 @@
                 android:layout_height="wrap_content"
                 android:text="@string/button_pubkey"
                 android:layout_marginBottom="50dp"
+                android:textColor="#3498db"
                 style="@style/Widget.MaterialComponents.Button.TextButton"
                 android:id="@+id/pubkey" />
         </LinearLayout>

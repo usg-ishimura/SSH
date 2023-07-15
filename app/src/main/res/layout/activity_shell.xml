@@ -23,7 +23,7 @@
             android:layout_height="wrap_content"
             app:boxStrokeColor="#837D7D"
             android:textColorHint="#837D7D"
-
+            android:id="@+id/tilcommand"
             style="@style/MyDenseOutlined">
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"

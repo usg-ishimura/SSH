@@ -12,7 +12,8 @@
         <item name="android:textCursorDrawable">@null</item>
         <item name="android:actionBarSize">35dp</item>
         <item name="actionBarSize">35dp</item>
-        <item name="colorPrimary">@color/primary</item>
+        <!--<item name="colorPrimary">@color/primary</item>-->
+        <item name="colorPrimary">@color/ic_launcher_background</item>
         <item name="colorSecondary">@color/primary</item>
         <item name="android:textColorPrimary">#fff</item>
         <item name="android:itemBackground">@color/ic_launcher_background</item>

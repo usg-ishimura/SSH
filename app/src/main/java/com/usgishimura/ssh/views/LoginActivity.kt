@@ -2,6 +2,8 @@ package com.usgishimura.ssh.views
 
 import android.content.Intent
 import android.content.SharedPreferences
+import android.content.res.ColorStateList
+import android.graphics.Color
 import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
@@ -14,6 +16,8 @@ import com.usgishimura.ssh.viewmodels.LoginActivityViewModel
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
 import com.google.android.material.textfield.TextInputEditText
+import com.google.android.material.textfield.TextInputLayout
+import kotlinx.android.synthetic.main.activity_login.*
 import java.io.File
 
 class LoginActivity : AppCompatActivity() {
@@ -25,7 +29,10 @@ class LoginActivity : AppCompatActivity() {
     private lateinit var password: TextInputEditText
     private lateinit var pubkey: MaterialButton
     private lateinit var start: ExtendedFloatingActionButton
-
+    private lateinit var tiladdress: TextInputLayout
+    private lateinit var tilport: TextInputLayout
+    private lateinit var tilusername: TextInputLayout
+    private lateinit var tilpassword: TextInputLayout
     private lateinit var encryptedSharedPrefs: SharedPreferences
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -38,7 +45,23 @@ class LoginActivity : AppCompatActivity() {
         password = findViewById(R.id.password)
         pubkey = findViewById(R.id.pubkey)
         start = findViewById(R.id.start)
-
+        tiladdress = findViewById(R.id.tiladdress)
+        tilport = findViewById(R.id.tilport)
+        tilusername = findViewById(R.id.tilusername)
+        tilpassword = findViewById(R.id.tilpassword)
+        val states = arrayOf(
+            intArrayOf(-android.R.attr.state_focused), // unfocused
+            intArrayOf(android.R.attr.state_focused) //focused
+        )
+        val colorsHint = intArrayOf(
+            Color.rgb(131,125,125),
+            Color.rgb(52,152,219)
+        )
+        val myHintList = ColorStateList(states, colorsHint)
+        tiladdress.defaultHintTextColor = myHintList;
+        tilport.defaultHintTextColor = myHintList;
+        tilusername.defaultHintTextColor = myHintList;
+        tilpassword.defaultHintTextColor = myHintList;
         val masterKeyAlias = MasterKey.Builder(this, MasterKey.DEFAULT_MASTER_KEY_ALIAS)
             .setKeyScheme(MasterKey.KeyScheme.AES256_GCM)
             .build()
